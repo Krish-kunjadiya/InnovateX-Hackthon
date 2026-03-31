@@ -78,10 +78,17 @@ if st.button("Predict", type="primary"):
         # Build raw input
         raw = {f"V{i}": v_vals[f"V{i}"] for i in range(1, 29)}
 
-        # Scale Amount & Time properly
-        scaled = scaler.transform([[amount, time]])
-        raw["Amount_scaled"] = scaled[0][0]
-        raw["Time_scaled"]   = scaled[0][1]
+        # # Scale Amount & Time properly
+        # scaled = scaler.transform([[amount, time]])
+        # raw["Amount_scaled"] = scaled[0][0]
+        # raw["Time_scaled"]   = scaled[0][1]
+
+        # Quick FIX (use same scaler separately)
+        amount_scaled = scaler.transform([[amount]])[0][0]
+        time_scaled   = scaler.transform([[time]])[0][0]
+        
+        raw["Amount_scaled"] = amount_scaled
+        raw["Time_scaled"]   = time_scaled
 
         # Feature Engineering (same as training)
         raw["V14_V17"] = raw["V14"] * raw["V17"]
