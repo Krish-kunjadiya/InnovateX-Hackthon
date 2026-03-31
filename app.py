@@ -102,7 +102,7 @@ if st.button("Predict", type="primary"):
         for col in selected_features:
             if col not in input_df.columns:
                 input_df[col] = 0
-        
+
         # Ensure correct order
         input_df = input_df[selected_features]
 
@@ -130,6 +130,8 @@ if st.button("Predict", type="primary"):
 
     st.metric("Fraud Probability", f"{prob * 100:.2f}%")
 
+    st.write("Selected Features Used:", selected_features)
+
     # Risk label
     if prob < 0.3:
         risk = "LOW RISK"
@@ -143,6 +145,7 @@ if st.button("Predict", type="primary"):
     # Progress bar
     st.progress(float(prob))
     st.caption("0% = Safe  |  100% = Fraud")
+
 
 
 # ── Sidebar info ─────────────────────────────────────────────────────────────
