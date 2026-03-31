@@ -5,4 +5,6 @@ seaborn
 scikit-learn
 imbalanced-learn
 tensorflow
-streamlit
+
+streamlit==1.32.0
+protobuf==3.20.3
