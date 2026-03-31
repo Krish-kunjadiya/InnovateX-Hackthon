@@ -86,7 +86,7 @@ if st.button("Predict", type="primary"):
         # Quick FIX (use same scaler separately)
         amount_scaled = scaler.transform([[amount]])[0][0]
         time_scaled   = scaler.transform([[time]])[0][0]
-        
+
         raw["Amount_scaled"] = amount_scaled
         raw["Time_scaled"]   = time_scaled
 
@@ -97,6 +97,13 @@ if st.button("Predict", type="primary"):
         input_df = pd.DataFrame([raw])
 
         # Ensure correct feature order
+        # input_df = input_df[selected_features]
+        # Ensure ALL required features exist
+        for col in selected_features:
+            if col not in input_df.columns:
+                input_df[col] = 0
+        
+        # Ensure correct order
         input_df = input_df[selected_features]
 
         # Apply feature selection
