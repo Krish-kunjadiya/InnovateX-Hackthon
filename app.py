@@ -84,8 +84,13 @@ if st.button("Predict", type="primary"):
         # raw["Time_scaled"]   = scaled[0][1]
 
         # Quick FIX (use same scaler separately)
-        amount_scaled = scaler.transform([[amount]])[0][0]
-        time_scaled   = scaler.transform([[time]])[0][0]
+        # amount_scaled = scaler.transform([[amount]])[0][0]
+        # time_scaled   = scaler.transform([[time]])[0][0]
+
+        scaled = scaler.transform([[amount, time]])
+
+        amount_scaled = scaled[0][0]
+        time_scaled   = scaled[0][1]
 
         raw["Amount_scaled"] = amount_scaled
         raw["Time_scaled"]   = time_scaled
@@ -122,11 +127,11 @@ if st.button("Predict", type="primary"):
     st.subheader("Prediction Result")
 
     if pred == 1:
-        st.error(f"🚨 FRAUDULENT TRANSACTION")
-        st.write("⚠️ High risk transaction. Consider blocking or reviewing.")
+        st.error(f" FRAUDULENT TRANSACTION")
+        st.write(" High risk transaction. Consider blocking or reviewing.")
     else:
-        st.success(f"✅ LEGITIMATE TRANSACTION")
-        st.write("✔️ This transaction appears safe.")
+        st.success(f" LEGITIMATE TRANSACTION")
+        st.write(" This transaction appears safe.")
 
     st.metric("Fraud Probability", f"{prob * 100:.2f}%")
 
